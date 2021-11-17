@@ -1,0 +1,170 @@
+﻿@model IEnumerable<housecleaningApi.Models.UserTbl>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Adduser">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RmId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fullname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StreetAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfLivingRooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfKitchens)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfBedrooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfBathrooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfWorshipRooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoOfStoreRooms)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LivingRoomSqft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KitchenSqft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BedroomSqft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BathroomSqft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorshipSqft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreRoomSqft)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreferredDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @ViewData["costpersqft"]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RmId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StreetAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfLivingRooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfKitchens)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfBedrooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfBathrooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfWorshipRooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoOfStoreRooms)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LivingRoomSqft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KitchenSqft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BedroomSqft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BathroomSqft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorshipSqft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreRoomSqft)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreferredDays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {@*(id=item.PrimaryKey*@  }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
