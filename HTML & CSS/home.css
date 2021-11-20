@@ -1,0 +1,9 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.home-bg{
+    height:598px;
+    width:100%;
+    background-color:red;    
+}
