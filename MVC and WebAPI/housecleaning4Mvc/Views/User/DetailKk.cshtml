@@ -1,0 +1,66 @@
+﻿@model IEnumerable<housecleaning4Api.Models.UserTbl>
+
+@{
+    ViewData["Title"] = "DetailKk";
+    <link href="~/css/style.css" rel="stylesheet" />
+}
+<section class="view-bg">
+    <div class="category">
+        <select onclick="getcity(this.options[this.selectedIndex].value)" class="city" id="city">
+            <option value="select" selected disabled>Select City</option>
+            <option value="index">All Cities</option>
+            <option value="DetailTvm">Tiruvannamalai</option>
+            <option value="Detailch">Chennai</option>
+            <option value="Detailkk">Kanyakumari</option>
+        </select>
+    </div>
+    @foreach (var item in Model)
+    {
+
+        <div class="box">
+            <div class="txt-content">
+                <h3>DETAILS</h3>
+                <div class="details">
+                    <div class="d1">
+                        <div class="name">
+                            <h4>@Html.DisplayFor(modelItem => item.Fullname)</h4>
+                            <p>@Html.DisplayFor(modelItem => item.PhoneNo)</p>
+                        </div>
+                        <div class="place">
+                            <h4>City</h4>
+                            <p>@Html.DisplayFor(modelItem => item.City)</p>
+                        </div>
+                    </div>
+                    <div class="d2">
+                        <div class="sqft">
+                            <h4>Overall Sqft</h4>
+                            <p>@Html.DisplayFor(modelItem => item.BathroomSqft)</p>
+                        </div>
+                        <div class="days">
+                            <h4>Preffered days</h4>
+                            <p>@Html.DisplayFor(modelItem => item.PreferredDays)</p>
+                        </div>
+                    </div>
+                    <div class="cost">Cost ₹@Html.DisplayFor(modelItem => item.TotalAmount)</div>
+                </div>
+            </div>
+            <div class="gif">
+                <img src="~/images/cleaningspray.gif" alt="cleaningspray gif">
+            </div>
+        </div>
+    }
+
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        function getcity(city) {
+            if (city != "select") {
+                window.location.href = '/user/' + city;
+
+            }
+        }
+    </script>
+
+}

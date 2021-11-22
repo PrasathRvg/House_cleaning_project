@@ -1,0 +1,282 @@
+﻿@model housecleaning4Api.Models.UserTbl
+
+@{
+    ViewData["Title"] = "Adduser";
+    <link href="~/css/style.css" rel="stylesheet" />
+}
+
+<div class="form-bg">
+    <div class="box">
+        <div class="image-cl">
+            <img src="~/images/cleaner-boy.png" id="c-boy" alt="cleaner img">
+        </div>
+        <div class="image-cl">
+            <img src="~/images/cleaning quips.png" id="cleanimg" alt="cleaner img">
+        </div>
+        <form asp-action="Adduser" class="form">
+            <h3>Book a Schedule</h3>
+            <h6>Contact details</h6>
+            <div class="f-row">
+                <input asp-for="Fullname" type="text" id="fullname" class="f-ibox" placeholder="Fullname">
+                <input asp-for="PhoneNo" type="number" id="phoneno" class="f-ibox" placeholder="PhoneNo.">
+                <span asp-validation-for="Fullname" class="text-danger"></span>
+            </div>
+            <div class="f-row">
+                <input asp-for="StreetAddress" type="text" id="address" class="f-ibox" placeholder="Street Address">
+                <select asp-for="City" type="text" id="city" class="f-ibox" placeholder="City">
+                    <option disabled selected>City</option>
+                    <option value="Tiruvannamalai">Tiruvannamalai</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kanyakumari">Kanyakumari</option>
+                </select>
+            </div>
+            <div class="f-row">
+                <div class="f-msg">
+                    <textarea asp-for="Message" id="msg" placeholder="Message" class="f-ibox"></textarea>
+                </div>
+            </div>
+            <h6>About your home</h6>
+            <div class="f-row" id="roomstop">
+                <img class="rooms" src="~/images/livingroom.jpg" alt="cleaner img">
+                <img class="rooms" src="~/images/kitchen.jpg" alt="cleaner img">
+            </div>
+
+            <div class="f-row">
+                <div class="quantity">
+                    <a class="sub-btn" onclick="lvroomsub()">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input asp-for="LivingRoomSqft" type="text" id="livingroomsqft" onchange="myFunction()" value=0>
+                    <a class="add-btn" onclick="lvroomadd()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="quantity">
+                    <a class="sub-btn" onclick="kitchensub()">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input asp-for="KitchenSqft" type="text" id="kitchensqft" onchange="myFunction()" value=0>
+                    <a class="add-btn" onclick="kitchenadd()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="f-row-sqft">
+                <h4>Sqft</h4>
+                <h4>Sqft</h4>
+            </div>
+            <!-- <div class="f-row">
+            <input type="number" class="f-ibox-sqft" placeholder="Livingroom Sqft">
+            <input type="number" class="f-ibox-sqft" placeholder="Kitchen Sqft">
+        </div> -->
+
+            <div class="f-row" id="roomsbottom">
+                <img class="rooms" src="~/images/bedroom.jpg" alt="cleaner img">
+                <img class="rooms" id="bathroom" src="~/images/bathroom.jpg" alt="cleaner img">
+            </div>
+
+            <div class="f-row">
+                <div class="quantity">
+                    <a class="sub-btn" onclick="bedroomsub()">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input asp-for="BedroomSqft" type="text" id="bedroomsqft" onchange="myFunction()" value=0>
+                    <a class="add-btn" onclick="bedroomadd()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="quantity">
+                    <a class="sub-btn" onclick="bathroomsub()">
+                        <i class="fa fa-minus"></i>
+                    </a>
+                    <input asp-for="BathroomSqft" type="text" id="bathroomsqft" onchange="myFunction()" value=0>
+                    <a class="add-btn" onclick="bathroomadd()">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="f-row-sqft">
+                <h4>Sqft</h4>
+                <h4>Sqft</h4>
+            </div>
+            <!-- <div class="f-row">
+            <input type="number" class="f-ibox-sqft" placeholder="Bedroom Sqft">
+            <input type="number" class="f-ibox-sqft" placeholder="Bathroom Sqft">
+        </div> -->
+            <div class="f-row">
+                <select asp-for="PreferredDays" class="f-ibox-days" id="days">
+                    <option disabled selected>Preffered Days</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekdays">Weekdays</option>
+                    <option value="Weekends">Weekends</option>
+                </select>
+                <label for="cars" id="cost" class="labl">Total Cost  ₹</label>
+                <input asp-for="TotalAmount" value=0 type="text" id="total" class="f-ibox-cost" >
+            </div>
+            <div class="sbtn">
+                <button class="submit" onclick="clearall()">Submit <i class="fa fa-check-square-o"></i> </button>
+        </form>
+        <button class="save" onclick="save()">Save <i class="fa fa-save"></i></button>
+    </div>
+       
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script language="JavaScript" type="text/javascript">
+
+        //livingroomsqft
+        function lvroomadd() {
+            var ladd = document.getElementById("livingroomsqft").value
+            document.getElementById("livingroomsqft").value = parseInt(ladd) + parseInt(1);
+            myFunction()
+        }
+        function lvroomsub() {
+            console.log("lvsub");
+            var lsub = document.getElementById("livingroomsqft").value
+            if (parseInt(lsub) <= 0) {
+                console.log("lv inside if")
+                document.getElementById("livingroomsqft").value = parseInt(0);
+            }
+            else {
+                console.log("lv inside else")
+                document.getElementById("livingroomsqft").value=parseInt(lsub)-1
+            }
+
+            myFunction()
+        }
+        //kitchensqft
+        function kitchenadd() {
+            var kadd = document.getElementById("kitchensqft").value
+            document.getElementById("kitchensqft").value = parseInt(kadd) + parseInt(1);
+            myFunction()
+        }
+        function kitchensub() {
+            var ksub = document.getElementById("kitchensqft").value
+            if (ksub == 0)
+                document.getElementById("kitchensqft").value = parseInt(0);
+            else
+                document.getElementById("kitchensqft").value = parseInt(ksub) - parseInt(1);
+            myFunction()
+        }
+        //bedroomsqft
+        function bedroomadd() {
+            var add = document.getElementById("bedroomsqft").value
+            document.getElementById("bedroomsqft").value = parseInt(add) + parseInt(1);
+            myFunction()
+        }
+        function bedroomsub() {
+            var sub = document.getElementById("bedroomsqft").value
+            if (sub == 0)
+                document.getElementById("bedroomsqft").value = parseInt(0);
+            else
+                document.getElementById("bedroomsqft").value = parseInt(sub) - parseInt(1);
+            myFunction()
+        }
+        //bathroomsqft
+        function bathroomadd() {
+            var add = document.getElementById("bathroomsqft").value
+            document.getElementById("bathroomsqft").value = parseInt(add) + parseInt(1);
+            myFunction()
+        }
+        function bathroomsub() {
+            var sub = document.getElementById("bathroomsqft").value
+            if (sub == 0)
+                document.getElementById("bathroomsqft").value = parseInt(0);
+            else
+                document.getElementById("bathroomsqft").value = parseInt(sub) - parseInt(1);
+            myFunction()
+        }
+
+        var lroomcost = 0;
+        var kitchencost = 0;
+        var bedroomcost = 0;
+        var bathroomcost = 0;
+
+        function myFunction() {
+            setInterval(() => {
+                var livingroomsqft = document.getElementById("livingroomsqft").value
+                var kitchensqft = document.getElementById("kitchensqft").value
+                var bedroomsqft = document.getElementById("bedroomsqft").value
+                var bathroomsqft = document.getElementById("bathroomsqft").value
+
+
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "Get",
+                        url: "/User/roomcost",
+                        data: "json",
+                        success: function (val) {
+                            for (i in val.data) {
+                                for (j in val.data[i]) {
+                                    if (j == "RoomName") {
+                                        if (val.data[i][j] == "living_room") {
+                                            lroomcost=val.data[i].CostPerSqft
+                                        }
+                                        if (val.data[i][j] == "kitchen") {
+                                            kitchencost = val.data[i].CostPerSqft
+                                        }
+                                        if (val.data[i][j] == "bedroom") {
+                                            bedroomcost=val.data[i].CostPerSqft
+                                        }
+                                        if (val.data[i][j] == "bathroom") {
+                                            bathroomcost = val.data[i].CostPerSqft
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    })
+                })
+
+                var total = (livingroomsqft * lroomcost) + (kitchensqft * kitchencost) + (bedroomsqft * bedroomcost) + (bathroomsqft * bathroomcost)
+                document.getElementById("total").value = total
+            }, 100);
+        }
+
+        function save() {
+            localStorage.setItem("fname",document.getElementById("fullname").value);
+            localStorage.setItem("fphoneno",document.getElementById("phoneno").value);
+            localStorage.setItem("faddress",document.getElementById("address").value);
+            localStorage.setItem("fcity",document.getElementById("city").value);
+            localStorage.setItem("fmsg",document.getElementById("msg").value);
+            localStorage.setItem("flivingroomsqft",document.getElementById("livingroomsqft").value);
+            localStorage.setItem("fkitchensqft",document.getElementById("kitchensqft").value);
+            localStorage.setItem("fbedroomsqft", document.getElementById("bedroomsqft").value);
+            localStorage.setItem("fbathroomsqft", document.getElementById("bathroomsqft").value);
+            localStorage.setItem("fdays",document.getElementById("days").value);
+            localStorage.setItem("ftotal",document.getElementById("total").value);
+        }
+        window.onload = function () {
+            var fullname = localStorage.getItem("fname");
+            var phoneno = localStorage.getItem("fphoneno");
+            var address = localStorage.getItem("faddress");
+            var city = localStorage.getItem("fcity");
+            var msg = localStorage.getItem("fmsg");
+            var livingroomsqft = localStorage.getItem("flivingroomsqft");
+            var kitchensqft = localStorage.getItem("fkitchensqft");
+            var bedroomsqft = localStorage.getItem("fbedroomsqft");
+            var bathroomsqft = localStorage.getItem("fbathroomsqft");
+            var days = localStorage.getItem("fdays");
+            var total = localStorage.getItem("ftotal");
+            if (fullname !== null) document.getElementById("fullname").value = fullname;
+            if (phoneno !== null) document.getElementById("phoneno").value = phoneno;
+            if (address !== null) document.getElementById("address").value = address;
+            if (city !== null) document.getElementById("city").value = city;
+            if (msg !== null) document.getElementById("msg").value = msg;
+            if (livingroomsqft !== null) document.getElementById("livingroomsqft").value = livingroomsqft;
+            if (kitchensqft !== null) document.getElementById("kitchensqft").value = kitchensqft;
+            if (bedroomsqft !== null) document.getElementById("bedroomsqft").value = bedroomsqft;
+            if (bathroomsqft !== null) document.getElementById("bathroomsqft").value = bathroomsqft;
+            if (days !== null) document.getElementById("days").value = days;
+            if (total !== null) document.getElementById("total").value = total;
+
+        }
+        function clearall() {
+            window.localStorage.clear();
+        }
+
+    </script>
+}
