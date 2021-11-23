@@ -1,0 +1,81 @@
+﻿@model housecleaning4Api.Models.UserTbl
+
+@{
+    ViewData["Title"] = "Details";
+    <link href="~/css/style.css" rel="stylesheet" />
+}
+
+<section class="view-bg-dt">
+    <div class="box-dt">
+        <div class="txt-content">
+            <h3>DETAILS</h3>
+            <div class="details">
+                <div class="d1">
+                    <div class="name">
+                        <h4>Fullname</h4>
+                        <p>@Html.DisplayFor(model => model.Fullname)</p>
+                    </div>
+                    <div class="place">
+                        <h4>Address</h4>
+                        <p>@Html.DisplayFor(model => model.StreetAddress)</p>
+                    </div>
+                </div>
+                <div class="d2">
+                    <div class="sqft">
+                        <h4>Phone no</h4>
+                        <p>@Html.DisplayFor(model => model.PhoneNo)</p>
+                    </div>
+                    <div class="days">
+                        <h4>City</h4>
+                        <p> @Html.DisplayFor(model => model.City)</p>
+                    </div>
+                </div>
+                <div class="d1">
+                    <div class="name">
+                        <h4>msg</h4>
+                        <p>@Html.DisplayFor(model => model.Message)</p>
+                    </div>
+                    <div class="place">
+                        <h4>Livingroom sqft</h4>
+                        <p>@Html.DisplayFor(model => model.LivingRoomSqft)</p>
+                    </div>
+                </div>
+                <div class="d2">
+                    <div class="sqft">
+                        <h4>Kitchen Sqft</h4>
+                        <p>@Html.DisplayFor(model => model.KitchenSqft)</p>
+                    </div>
+                    <div class="days">
+                        <h4>Bedroom sqft</h4>
+                        <p>@Html.DisplayFor(model => model.BedroomSqft)</p>
+                    </div>
+                </div>
+                <div class="d1">
+                    <div class="name">
+                        <h4>bathroom</h4>
+                        <p>@Html.DisplayFor(model => model.BathroomSqft)</p>
+                    </div>
+                    <div class="place">
+                        <h4>Preffered days</h4>
+                        <p>@Html.DisplayFor(model => model.PreferredDays)</p>
+                    </div>
+                </div>
+                <div class="d2">
+                    <div class="sqft">
+                        <h4>Total Cost</h4>
+                        <p>@Html.DisplayFor(model => model.TotalAmount)</p>
+                    </div>
+                    <div class="days">
+                        <h4>Request no</h4>
+                        <p>@Html.DisplayFor(model => model.RequestNo)</p>
+                    </div>
+                </div>
+               
+                <div class="cost"><a asp-action="Index" asp-controller="User">Back</a></div>
+            </div>
+        </div>
+        <div class="gif">
+            <img src="~/images/housegif.gif" alt="cleaningspray gif">
+        </div>
+    </div>
+</section>

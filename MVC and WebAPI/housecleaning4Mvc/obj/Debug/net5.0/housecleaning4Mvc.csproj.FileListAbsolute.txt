@@ -438,3 +438,5 @@ C:\Users\Merit\source\repos\housecleaning4\housecleaning4Mvc\obj\Debug\net5.0\Ra
 C:\Users\Merit\source\repos\housecleaning4\housecleaning4Mvc\obj\Debug\net5.0\Razor\Views\User\Detailch.cshtml.g.cs
 C:\Users\Merit\source\repos\housecleaning4\housecleaning4Mvc\obj\Debug\net5.0\Razor\Views\User\DetailTvm.cshtml.g.cs
 C:\Users\Merit\source\repos\housecleaning4\housecleaning4Mvc\obj\Debug\net5.0\Razor\Views\User\DetailKk.cshtml.g.cs
+C:\Users\Merit\source\repos\housecleaning4\housecleaning4Mvc\obj\Debug\net5.0\Razor\Views\User\Details.cshtml.g.cs
+C:\Users\Merit\source\repos\housecleaning4\housecleaning4Mvc\obj\Debug\net5.0\Razor\Views\User\Detailscity.cshtml.g.cs

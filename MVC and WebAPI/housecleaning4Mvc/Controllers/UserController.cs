@@ -78,7 +78,33 @@ namespace housecleaning4Mvc.Controllers
             }
             return View(cities);
         }
+        
+        public async Task<IActionResult> Details(int id)
+        {
+            var lst = new UserTbl();
+            HttpClient cli = _api.Initial();
+            HttpResponseMessage result = await cli.GetAsync($"api/UserTbls/{id}");
+            if (result.IsSuccessStatusCode)
+            {
+                var res = result.Content.ReadAsStringAsync().Result;
+                lst = JsonConvert.DeserializeObject<UserTbl>(res);
+            }
+            return View(lst);
+        }
 
+        /*public async Task<IActionResult> Detailscity(string city)
+        {
+            List<UserTbl> lst = new List<UserTbl>();
+            ViewData["city"] = city;
+            HttpClient cli = _api.Initial();
+            HttpResponseMessage result = await cli.GetAsync($"api/UserTbls/UserTbl/{city}");
+            if (result.IsSuccessStatusCode)
+            {
+                var res = result.Content.ReadAsStringAsync().Result;
+                lst = JsonConvert.DeserializeObject<List<UserTbl>>(res);
+            }
+            return View(lst);
+        }*/
 
 
         public ActionResult Adduser()

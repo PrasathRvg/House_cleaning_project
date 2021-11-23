@@ -17,18 +17,21 @@
             <h3>Book a Schedule</h3>
             <h6>Contact details</h6>
             <div class="f-row">
-                <input asp-for="Fullname" type="text" id="fullname" class="f-ibox" placeholder="Fullname">
-                <input asp-for="PhoneNo" type="number" id="phoneno" class="f-ibox" placeholder="PhoneNo.">
+                <input asp-for="Fullname" type="text" id="fullname" class="f-ibox" onchange="namevalidation()" placeholder="Fullname">
                 <span asp-validation-for="Fullname" class="text-danger"></span>
+                <input asp-for="PhoneNo" type="number" id="phoneno" class="f-ibox" onchange="novalidation()" placeholder="PhoneNo.">
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
             </div>
             <div class="f-row">
-                <input asp-for="StreetAddress" type="text" id="address" class="f-ibox" placeholder="Street Address">
-                <select asp-for="City" type="text" id="city" class="f-ibox" placeholder="City">
+                <input asp-for="StreetAddress" type="text" id="address" class="f-ibox" onchange="addressvalidation()" placeholder="Street Address">
+                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+                <select asp-for="City" type="text" id="city" class="f-ibox" onchange="cityvalidation()" placeholder="City">
                     <option disabled selected>City</option>
                     <option value="Tiruvannamalai">Tiruvannamalai</option>
                     <option value="Chennai">Chennai</option>
                     <option value="Kanyakumari">Kanyakumari</option>
                 </select>
+                <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="f-row">
                 <div class="f-msg">
@@ -66,9 +69,9 @@
                 <h4>Sqft</h4>
             </div>
             <!-- <div class="f-row">
-            <input type="number" class="f-ibox-sqft" placeholder="Livingroom Sqft">
-            <input type="number" class="f-ibox-sqft" placeholder="Kitchen Sqft">
-        </div> -->
+        <input type="number" class="f-ibox-sqft" placeholder="Livingroom Sqft">
+        <input type="number" class="f-ibox-sqft" placeholder="Kitchen Sqft">
+    </div> -->
 
             <div class="f-row" id="roomsbottom">
                 <img class="rooms" src="~/images/bedroom.jpg" alt="cleaner img">
@@ -100,9 +103,9 @@
                 <h4>Sqft</h4>
             </div>
             <!-- <div class="f-row">
-            <input type="number" class="f-ibox-sqft" placeholder="Bedroom Sqft">
-            <input type="number" class="f-ibox-sqft" placeholder="Bathroom Sqft">
-        </div> -->
+        <input type="number" class="f-ibox-sqft" placeholder="Bedroom Sqft">
+        <input type="number" class="f-ibox-sqft" placeholder="Bathroom Sqft">
+    </div> -->
             <div class="f-row">
                 <select asp-for="PreferredDays" class="f-ibox-days" id="days">
                     <option disabled selected>Preffered Days</option>
@@ -111,21 +114,23 @@
                     <option value="Weekends">Weekends</option>
                 </select>
                 <label for="cars" id="cost" class="labl">Total Cost  ₹</label>
-                <input asp-for="TotalAmount" value=0 type="text" id="total" class="f-ibox-cost" >
+                <input asp-for="TotalAmount" value=0 type="text" id="total" readonly class="f-ibox-cost">
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="sbtn">
                 <button class="submit" onclick="clearall()">Submit <i class="fa fa-check-square-o"></i> </button>
+            </div>
         </form>
-        <button class="save" onclick="save()">Save <i class="fa fa-save"></i></button>
-    </div>
-       
+        @*<div class="save-btn">*@
+            <button class="save" onclick="save()">Save <i class="fa fa-save"></i></button>
+        @*</div>*@
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script language="JavaScript" type="text/javascript">
+<script language="JavaScript" type="text/javascript">
 
         //livingroomsqft
         function lvroomadd() {
@@ -231,12 +236,22 @@
                     })
                 })
 
+                if (livingroomsqft <= 0)
+                    livingroomsqft = 0;
+                if (kitchensqft <= 0)
+                    kitchensqft = 0;
+                if (bedroomsqft <= 0)
+                    bedroomsqft = 0;
+                if (bathroomsqft <= 0)
+                    bathroomsqft = 0;
+
                 var total = (livingroomsqft * lroomcost) + (kitchensqft * kitchencost) + (bedroomsqft * bedroomcost) + (bathroomsqft * bathroomcost)
                 document.getElementById("total").value = total
             }, 100);
         }
 
         function save() {
+            alert("Your form has been saved")
             localStorage.setItem("fname",document.getElementById("fullname").value);
             localStorage.setItem("fphoneno",document.getElementById("phoneno").value);
             localStorage.setItem("faddress",document.getElementById("address").value);
@@ -261,22 +276,38 @@
             var bathroomsqft = localStorage.getItem("fbathroomsqft");
             var days = localStorage.getItem("fdays");
             var total = localStorage.getItem("ftotal");
-            if (fullname !== null) document.getElementById("fullname").value = fullname;
-            if (phoneno !== null) document.getElementById("phoneno").value = phoneno;
-            if (address !== null) document.getElementById("address").value = address;
-            if (city !== null) document.getElementById("city").value = city;
-            if (msg !== null) document.getElementById("msg").value = msg;
-            if (livingroomsqft !== null) document.getElementById("livingroomsqft").value = livingroomsqft;
-            if (kitchensqft !== null) document.getElementById("kitchensqft").value = kitchensqft;
-            if (bedroomsqft !== null) document.getElementById("bedroomsqft").value = bedroomsqft;
-            if (bathroomsqft !== null) document.getElementById("bathroomsqft").value = bathroomsqft;
-            if (days !== null) document.getElementById("days").value = days;
-            if (total !== null) document.getElementById("total").value = total;
+            if (fullname !== null)
+                document.getElementById("fullname").value = fullname;
+            if (phoneno !== null)
+                document.getElementById("phoneno").value = phoneno;
+            if (address !== null)
+                document.getElementById("address").value = address;
+            if (city !== null)
+                document.getElementById("city").value = city;
+            if (msg !== null)
+                document.getElementById("msg").value = msg;
+            if (livingroomsqft !== null)
+                document.getElementById("livingroomsqft").value = livingroomsqft;
+            if (kitchensqft !== null)
+                document.getElementById("kitchensqft").value = kitchensqft;
+            if (bedroomsqft !== null)
+                document.getElementById("bedroomsqft").value = bedroomsqft;
+            if (bathroomsqft !== null)
+                document.getElementById("bathroomsqft").value = bathroomsqft;
+            if (days !== null)
+                document.getElementById("days").value = days;
+            if (total !== null)
+                document.getElementById("total").value = total;
 
         }
-        function clearall() {
-            window.localStorage.clear();
-        }
-
-    </script>
+    function clearall() {
+        window.localStorage.clear();
+    }
+   @* function namevalidation() {
+        if (document.getElementById("fullname") == null)
+            $('#fullname').css("border-color", "Red")
+        else
+            $('#fullname').css("border-color", "blue")
+    }*@
+</script>
 }

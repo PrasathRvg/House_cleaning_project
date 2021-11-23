@@ -24,25 +24,25 @@
                 <div class="details">
                     <div class="d1">
                         <div class="name">
-                            <h4>@Html.DisplayFor(modelItem => item.Fullname)</h4>
-                            <p>@Html.DisplayFor(modelItem => item.PhoneNo)</p>
+                            <h4>Fullname</h4>
+                            <p>@Html.DisplayFor(modelItem => item.Fullname)</p>
                         </div>
                         <div class="place">
-                            <h4>City</h4>
-                            <p>@Html.DisplayFor(modelItem => item.City)</p>
+                            <h4>Phone no.</h4>
+                            <p>@Html.DisplayFor(modelItem => item.PhoneNo)</p>
                         </div>
                     </div>
                     <div class="d2">
                         <div class="sqft">
-                            <h4>Overall Sqft</h4>
-                            <p>@Html.DisplayFor(modelItem => item.BathroomSqft)</p>
+                            <h4>City</h4>
+                            <p>@Html.DisplayFor(modelItem => item.City)</p>
                         </div>
                         <div class="days">
                             <h4>Preffered days</h4>
                             <p>@Html.DisplayFor(modelItem => item.PreferredDays)</p>
                         </div>
                     </div>
-                    <div class="cost">Cost ₹@Html.DisplayFor(modelItem => item.TotalAmount)</div>
+                    <div class="cost"><a asp-action="Details" asp-controller="User" asp-route-id="@item.UserId">View All Details</a></div>
                 </div>
             </div>
             <div class="gif">
